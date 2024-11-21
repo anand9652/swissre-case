@@ -16,12 +16,11 @@ public class EmployeeManager {
 
     public void loadEmployeesFromCSV(String csvFilePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))){
-             //CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withHeader())) {
         	String line;
-        	reader.readLine();
+        	reader.readLine();//skip header
             while ((line = reader.readLine()) != null ) {
             	String parts[] =line.split(",");
-            	if(parts.length == 1) continue;
+            	if(parts.length == 1) continue;//skip blank/empty lines
                 int id = Integer.parseInt(parts[0]);
                 String firstName = parts[1];
                 String lastName = parts[2];
@@ -41,9 +40,8 @@ public class EmployeeManager {
                     ceo = employee;  // CEO has no manager
                 }
             }
-        //}
         }catch(IOException ex) {
-        	
+        	System.out.println("Error occured while reading file "+ex.getMessage());
         }
         
     }
